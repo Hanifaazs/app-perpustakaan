@@ -2,61 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMemberRequest;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private array $members = [
+        ['id' => 1, 'nama' => 'Ahmad Dahlan', 'nim' => '2200018001', 'email' => 'ahmad@example.com', 'nomor_telepon' => '081234567890', 'alamat' => 'Yogyakarta', 'status' => 'aktif'],
+        ['id' => 2, 'nama' => 'Siti Walidah', 'nim' => '2200018002', 'email' => 'siti@example.com', 'nomor_telepon' => '081234567891', 'alamat' => 'Sleman', 'status' => 'aktif'],
+    ];
+
     public function index()
     {
-        return 'MemberController@index';
+        $members = $this->members;
+
+        return view('members.index', compact('members'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return 'MemberController@create';
+        return view('members.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreMemberRequest $request)
     {
-        return 'MemberController@store';
+        $validated = $request->validated();
+
+        return redirect()->route('members.index')
+            ->with('success', "Anggota \"{$validated['nama']}\" berhasil ditambahkan (data dummy, belum tersimpan ke database).");
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         return "MemberController@show, id: {$id}";
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         return "MemberController@edit, id: {$id}";
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         return "MemberController@update, id: {$id}";
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         return "MemberController@destroy, id: {$id}";

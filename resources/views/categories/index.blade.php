@@ -41,5 +41,5 @@
         </tbody>
     </table>
 
-    <p><em>Catatan: data di atas masih data dummy (array statis di Controller), belum tersimpan ke database.</em></p>
+    {{ $categories->links() }}
 @endsection

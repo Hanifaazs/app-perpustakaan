@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
     private array $members = [
-        ['id' => 1, 'nama' => 'Hanif Abdul Azis', 'nim' => '3125600001', 'email' => 'hanif@example.com', 'nomor_telepon' => '085546666103', 'alamat' => 'Sidoarjo', 'status' => 'aktif'],
+        ['id' => 1, 'nama' => 'Siti Aminah', 'nim' => '2310501001', 'email' => 'siti.aminah@example.com', 'nomor_telepon' => '081234567890', 'status' => 'aktif'],
+        ['id' => 2, 'nama' => 'Budi Santoso', 'nim' => '2310501002', 'email' => 'budi.santoso@example.com', 'nomor_telepon' => '081234567891', 'status' => 'aktif'],
+        ['id' => 3, 'nama' => 'Dewi Lestari', 'nim' => '2310501003', 'email' => 'dewi.lestari@example.com', 'nomor_telepon' => '081234567892', 'status' => 'nonaktif'],
     ];
 
     public function index()

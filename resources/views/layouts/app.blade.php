@@ -21,6 +21,10 @@
         label { display: block; margin-top: 12px; font-weight: bold; }
         input, select, textarea { width: 100%; padding: 6px; margin-top: 4px; box-sizing: border-box; }
         .error { color: #b91c1c; font-size: 14px; margin-top: 4px; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: #fff; text-align: center; }
+        .badge-dikembalikan { background-color: #16a34a; color: #fff; }
+        .badge-dipinjam { background-color: #eab308; color: #000; }
+        .badge-terlambat { background-color: #dc2626; color: #fff; }
         footer { text-align: center; padding: 20px; color: #6b7280; font-size: 14px; }
     </style>
 </head>

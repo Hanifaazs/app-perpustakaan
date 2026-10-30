@@ -1,28 +1,22 @@
 # Dokumentasi REST API `app-perpustakaan` (Pertemuan 9)
 
-
-## Ringkasan 11 Endpoint API
-
 | No | Method | URL | Body (jika ada) | Status Sukses | Status Gagal | Deskripsi |
 |:---|:---|:---|:---|:---:|:---:|:---|
-| 1 | `GET` | `/api/books` | - | `200 OK` | - | Mengambil daftar buku (terpaginasi 10 item/halaman) dengan dukungan filter query parameter `?judul=` dan `?category_id=`. |
+| 1 | `GET` | `/api/books` | - | `200 OK` | - | Mengambil daftar buku, 10 item per halaman. Filter tersedia melalui `?judul=` dan `?category_id=`. |
 | 2 | `GET` | `/api/books/{id}` | - | `200 OK` | `404 Not Found` | Mengambil detail 1 buku berdasarkan ID beserta relasi kategori. |
 | 3 | `POST` | `/api/books` | JSON (data buku) | `201 Created` | `422 Unprocessable Content` | Menambahkan data buku baru menggunakan validasi `StoreBookRequest`. |
 | 4 | `PUT` | `/api/books/{id}` | JSON (data buku) | `200 OK` | `422`, `404` | Memperbarui data buku berdasarkan ID. |
 | 5 | `DELETE` | `/api/books/{id}` | - | `200 OK` | `404 Not Found` | Menghapus data buku berdasarkan ID. |
 | 6 | `GET` | `/api/members` | - | `200 OK` | - | Mengambil daftar anggota perpustakaan (terpaginasi 10 item/halaman). |
 | 7 | `GET` | `/api/members/{id}` | - | `200 OK` | `404 Not Found` | Mengambil detail 1 anggota berdasarkan ID. |
-| 8 | `GET` | `/api/loans` | - | `200 OK` | - | Mengambil seluruh transaksi peminjaman beserta relasi `member`, `user` (petugas), dan `loanItems.book`. |
+| 8 | `GET` | `/api/loans` | - | `200 OK` | - | Mengambil daftar transaksi peminjaman beserta relasi `member`, `user` (petugas), dan `loanItems.book`. |
 | 9 | `POST` | `/api/loans` | JSON (data peminjaman) | `201 Created` | `422 Unprocessable Content` | Mencatat transaksi peminjaman baru untuk 1 atau lebih buku. |
 | 10 | `PUT` | `/api/loans/{id}/kembalikan` | - | `200 OK` | `404 Not Found` | Mengubah status peminjaman menjadi `dikembalikan` dan mengisi `tanggal_dikembalikan`. |
 | 11 | `GET` | `/api/stats` | - | `200 OK` | - | Mengambil ringkasan statistik (total buku, total anggota, peminjaman aktif). |
 
----
-
-## Rincian Endpoint dan Contoh Response
 
 ### 1. `GET /api/books`
-Mengambil daftar buku dalam bentuk API Resource Collection dengan pagination dan nested data kategori. Mendukung filter opsional:
+Mengambil daftar buku beserta data kategori. Respons menggunakan API Resource Collection dan pagination. Filter yang tersedia:
 - `?judul=laskar`
 - `?category_id=1`
 
@@ -108,7 +102,7 @@ Accept: application/json
 ---
 
 ### 2. `GET /api/books/{id}`
-Mengambil detail satu buku berdasarkan primary key ID.
+Mengambil detail buku berdasarkan ID.
 
 #### Request
 ```http
@@ -149,7 +143,7 @@ Accept: application/json
 ---
 
 ### 3. `POST /api/books`
-Menambahkan satu buku baru. Divalidasi oleh `StoreBookRequest`. Mengembalikan status code `201 Created`.
+Menambahkan buku baru. Validasi menggunakan `StoreBookRequest`. Jika berhasil, respons menggunakan status `201 Created`.
 
 #### Request
 ```http
@@ -221,7 +215,7 @@ Accept: application/json
 ---
 
 ### 4. `PUT /api/books/{id}`
-Memperbarui data buku yang ada di database.
+Memperbarui data buku berdasarkan ID.
 
 #### Request
 ```http
@@ -292,7 +286,7 @@ Accept: application/json
 ---
 
 ### 6. `GET /api/members`
-Mengambil daftar anggota perpustakaan yang terdaftar.
+Mengambil daftar anggota perpustakaan.
 
 #### Request
 ```http
@@ -355,7 +349,7 @@ Accept: application/json
 ---
 
 ### 7. `GET /api/members/{id}`
-Mengambil detail satu anggota perpustakaan.
+Mengambil detail anggota berdasarkan ID.
 
 #### Request
 ```http
@@ -391,7 +385,7 @@ Accept: application/json
 ---
 
 ### 8. `GET /api/loans`
-Mengambil seluruh data peminjaman buku beserta eager loading relasi `member`, `user` (`petugas`), dan `loanItems.book` (`books`).
+Mengambil daftar peminjaman beserta relasi `member`, `user` (`petugas`), dan `loanItems.book` (`books`).
 
 #### Request
 ```http
@@ -464,7 +458,7 @@ Accept: application/json
 ---
 
 ### 9. `POST /api/loans`
-Mencatat peminjaman baru beserta daftar buku (`book_ids[]`). `user_id` disertakan eksplisit pada request body.
+Mencatat peminjaman baru beserta daftar buku (`book_ids[]`). Sertakan `user_id` pada request body.
 
 #### Request
 ```http
@@ -540,7 +534,7 @@ Accept: application/json
 ---
 
 ### 10. `PUT /api/loans/{id}/kembalikan`
-Menandai peminjaman telah dikembalikan. Mengubah status menjadi `dikembalikan` dan mengisi `tanggal_dikembalikan` dengan tanggal hari ini.
+Menandai peminjaman sebagai dikembalikan. Status diubah menjadi `dikembalikan` dan `tanggal_dikembalikan` diisi dengan tanggal hari ini.
 
 #### Request
 ```http
@@ -590,7 +584,7 @@ Accept: application/json
 ---
 
 ### 11. `GET /api/stats`
-Mengambil ringkasan statistik buku, anggota, dan peminjaman yang sedang aktif (`status = 'dipinjam'`).
+Mengambil jumlah buku, anggota, dan peminjaman aktif (`status = 'dipinjam'`).
 
 #### Request
 ```http

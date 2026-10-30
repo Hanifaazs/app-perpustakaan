@@ -1,10 +1,5 @@
 # Dokumentasi REST API `app-perpustakaan` (Pertemuan 9)
 
-Dokumentasi ini mencakup 11 endpoint REST API untuk resource `books`, `members`, `loans`, dan `stats`. Seluruh endpoint menggunakan prefix `/api` dan mengembalikan response dalam format JSON dengan header `Content-Type: application/json`.
-
-> **Catatan Pengujian:** Klien API (misalnya Postman) disarankan untuk menyertakan header `Accept: application/json` pada setiap request agar respon error dan validasi selalu dikembalikan dalam format JSON.
-
----
 
 ## Ringkasan 11 Endpoint API
 
